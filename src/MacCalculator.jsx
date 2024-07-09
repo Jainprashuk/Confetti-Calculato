@@ -60,6 +60,7 @@ const MacCalculator = () => {
       result = Math.pow(x, 1 / y);
     } else {
       result = calculateResult();
+      console.log(result);
     }
   
     if (result !== null) {
@@ -84,18 +85,8 @@ const MacCalculator = () => {
   };
 
   const handlePercentage = () => {
-    let newValue;
-    if (operator) {
-      // If there is an operator, calculate the percentage based on the display value and the previous operand
-      newValue = parseFloat(displayValue) * (parseFloat(expression.split(operator).pop()) || 1) / 100;
-      setDisplayValue(newValue.toString());
-      setExpression(expression + "%");
-    } else {
-      // If there is no operator, just calculate the percentage of the current display value
-      newValue = parseFloat(displayValue/100);
-      setDisplayValue(newValue.toString());
-      setExpression(newValue.toString());
-    }
+    setDisplayValue(displayValue + "%");
+    setExpression(expression + "%");
   };
   
 
