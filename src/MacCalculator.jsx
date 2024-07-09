@@ -4,20 +4,29 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { evaluate } from "mathjs";
 
 const MacCalculator = () => {
+  // State for display value on the screen
   const [displayValue, setDisplayValue] = useState("0");
+  // State for storing memory value
   const [memory, setMemory] = useState(null);
+  // State for triggering confetti animation
   const [confetti, setConfetti] = useState(false);
+  // State for checking if the calculator is in radians mode
   const [isRadians, setIsRadians] = useState(true);
+  // State for storing the mathematical expression
   const [expression, setExpression] = useState("");
+  // State for toggling scientific function buttons
   const [switchbtn, setswitchbtn] = useState(true);
 
+  // Effect to handle the confetti animation display
   useEffect(() => {
     if (confetti) {
-      setTimeout(() => setConfetti(false), 3000);
+      setTimeout(() => setConfetti(false), 3000); // Hide confetti after 3 seconds
     }
   }, [confetti]);
 
+  // Handle digit button clicks
   const handleDigit = (digit) => {
+    // Append digit to the display and expression
     if (displayValue === "0") {
       setDisplayValue(digit);
     } else {
@@ -26,11 +35,14 @@ const MacCalculator = () => {
     setExpression(expression + digit);
   };
 
+  // Handle operator button clicks
   const handleOperator = (op) => {
+    // Append operator to the display and expression
     setDisplayValue(displayValue + op);
     setExpression(expression + op);
   };
 
+  // Calculate the result of the current expression
   const calculateResult = () => {
     if (!expression) return null;
 
@@ -42,6 +54,7 @@ const MacCalculator = () => {
     }
   };
 
+  // Trigger confetti if the expression contains 2 and 6
   const triggerConfetti = (expression) => {
     const numbers = expression.match(/(\d+(\.\d+)?)/g).map(Number);
 
@@ -50,6 +63,7 @@ const MacCalculator = () => {
     }
   };
 
+  // Handle the equals button click to compute the result
   const handleEquals = () => {
     triggerConfetti(expression);
   
@@ -60,7 +74,6 @@ const MacCalculator = () => {
       result = Math.pow(x, 1 / y);
     } else {
       result = calculateResult();
-      console.log(result);
     }
   
     if (result !== null) {
@@ -68,14 +81,15 @@ const MacCalculator = () => {
       setExpression(result.toString());
     }
   };
-  
 
+  // Handle clear button click to reset the calculator
   const handleClear = () => {
     setDisplayValue("0");
     setMemory(null);
     setExpression("");
   };
 
+  // Toggle the sign of the current display value
   const handleToggleSign = () => {
     setDisplayValue((parseFloat(displayValue) * -1).toString());
     setExpression(
@@ -84,16 +98,18 @@ const MacCalculator = () => {
     );
   };
 
+  // Handle percentage button click
   const handlePercentage = () => {
     setDisplayValue(displayValue + "%");
     setExpression(expression + "%");
   };
-  
 
+  // Clear the memory
   const handleMemoryClear = () => {
     setMemory(null);
   };
 
+  // Add the current display value to memory
   const handleMemoryAdd = () => {
     setMemory((prevMemory) =>
       prevMemory
@@ -102,6 +118,7 @@ const MacCalculator = () => {
     );
   };
 
+  // Subtract the current display value from memory
   const handleMemorySubtract = () => {
     setMemory((prevMemory) =>
       prevMemory
@@ -110,6 +127,7 @@ const MacCalculator = () => {
     );
   };
 
+  // Recall the memory value to the display
   const handleMemoryRecall = () => {
     if (memory !== null) {
       setDisplayValue(memory.toString());
@@ -117,6 +135,7 @@ const MacCalculator = () => {
     }
   };
 
+  // Handle scientific functions based on the button clicked
   const handleScientificFunction = (func) => {
     let result = parseFloat(displayValue);
 
@@ -229,10 +248,12 @@ const MacCalculator = () => {
     setExpression(result.toString());
   };
 
+  // Toggle between radians and degrees
   const handleRadiansToggle = () => {
     setIsRadians(!isRadians);
   };
 
+  // Factorial function
   const factorial = (n) => {
     if (n < 0) return NaN;
     if (n === 0) return 1;
@@ -243,6 +264,7 @@ const MacCalculator = () => {
     return result;
   };
 
+  // Handle parenthesis button clicks
   const handleParenthesis = (type) => {
     if (type === "(") {
       setExpression(expression + "(");
