@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.meri{
+  box-shadow: 0 60px 80px 0 rgba(0, 0, 0, 0.2), 0 40px 70px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* .heading {
+  background: linear-gradient(to right, #D97706, #DC2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+button{
+  padding: 15px;
+}
